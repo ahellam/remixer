@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
 import Navigation from './Navigation';
 import Home from './Home';
+import Search from './Search';
 
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
         <Navigation />
         <Routes>
           <Route path="/" element={<Home />}/>
+          <Route path="/search" element={<Search />}/>
         </Routes>
       </Router>
     </div>

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
 
   get "spotify_api/search", to: "spotify_api#search"
+
   get "spotify_api/audio-analysis", to: "spotify_api#audio_analysis"
-  
+
 end
