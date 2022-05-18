@@ -28,6 +28,7 @@ module SpotifyApi
                 get("tracks/#{id}")
             end
 
+            # get track analysis details
             def audio_analysis(id) 
                 get("audio-analysis/#{id}")
             end
