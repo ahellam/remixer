@@ -2,11 +2,12 @@ class SpotifyApiController < ApplicationController
 
     def search 
         # binding.pry
-        results = SpotifyApi::Client.search_track(params[:track_name]).to_json
+        results = SpotifyApi::Client.search_track(params[:track_name])
         render json: results, status: :ok
     end
 
     def audio_analysis 
-        SpotifyApi::Client.audio_analysis(params[:track_id])
+        results = SpotifyApi::Client.audio_analysis(params[:id])
+        render json: results, status: :ok
     end
 end
