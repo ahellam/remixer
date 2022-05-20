@@ -5,7 +5,7 @@ function Search() {
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [currentTrackId, setCurrentTrackId] = useState("");
-  const [analysisStats, setAnalysisStats] = useState([])
+  const [analysisStats, setAnalysisStats] = useState();
 
   function handleSearch(e) {
     e.preventDefault();
@@ -15,13 +15,18 @@ function Search() {
     .then(setSearch(""))
   }
 
+  // SHOULD THIS BE 2 DIFFERENT USE EFFECTS?
   useEffect(() => {
-    if (searchResults.length > 1)
-    setCurrentTrackId(searchResults[0].id)
+    // if (searchResults.length > 1)
+    // setCurrentTrackId(searchResults[0].id)
+    searchResults.length > 1 ? setCurrentTrackId(searchResults[0].id) : setCurrentTrackId("")
+
     if (currentTrackId.length > 1)
     fetch(`http://localhost:3000/spotify_api/audio-analysis?id=${currentTrackId}`)
     .then(res => res.json())
-    .then(json => console.log("tempo: ", json.track.tempo, "key: ", json.track.key))
+    .then(setAnalysisStats)
+    
+    // .then(json => console.log("tempo: ", json.track.tempo, "key: ", json.track.key))
     // .then(json => setAnalysisStats(json.track))
   }, [searchResults, currentTrackId])
 
@@ -31,8 +36,13 @@ function Search() {
     
   }
 
+  function clearTrackInfo() {
+    setSearchResults([])
+    setCurrentTrackId("")
+}
+
                                                                                   // console.log(analysisStats)
-                                                                                  
+                                                                                  // console.log(currentTrackId)
   return (
     <div className=" bg-neutral-800 p-3 rounded-sm grid grid-rows-6">
       <form id="searchTrack" onSubmit={handleSearch}>
@@ -60,7 +70,7 @@ function Search() {
         </button>
       </form>
       <div className="row-start-2 row-span-2">
-      {searchResults[0] && <Result searchResults={searchResults} setSearchResults={setSearchResults} handleRecommendation={handleRecommendation}/>}
+      {searchResults[0] && <Result searchResults={searchResults} setSearchResults={setSearchResults} analysisStats={analysisStats} handleRecommendation={handleRecommendation} clearTrackInfo={clearTrackInfo}/>}
       </div>
     </div>
   );
