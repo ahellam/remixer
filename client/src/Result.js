@@ -17,6 +17,8 @@ function Result({ searchResults, setSearchResults, analysisStats, clearTrackInfo
     return num > 0 ? "Major" : "Minor"
   }
 
+  
+
   return (
     <div>
       {searchResults[0] && (
@@ -54,7 +56,7 @@ function Result({ searchResults, setSearchResults, analysisStats, clearTrackInfo
             </span>
             {analysisStats.track.tempo} &nbsp;&nbsp;<span className="text-green-400 font-semibold tracking-wide">
               TIME SIGNATURE:&nbsp;
-            </span> {analysisStats.track.time_signature} <br></br>
+            </span> {analysisStats.track.time_signature}/4 <br></br>
             <span className="text-green-400 font-semibold tracking-wide">
               ANALYSIS KEY: &nbsp;
             </span>

@@ -70,7 +70,7 @@ function Search() {
         </button>
       </form>
       <div className="row-start-2 row-span-2">
-      {searchResults[0] && <Result searchResults={searchResults} setSearchResults={setSearchResults} analysisStats={analysisStats} handleRecommendation={handleRecommendation} clearTrackInfo={clearTrackInfo}/>}
+      {searchResults[0] && analysisStats && <Result searchResults={searchResults} setSearchResults={setSearchResults} analysisStats={analysisStats} handleRecommendation={handleRecommendation} clearTrackInfo={clearTrackInfo}/>}
       </div>
     </div>
   );
