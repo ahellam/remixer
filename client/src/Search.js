@@ -7,6 +7,7 @@ function Search() {
   const [currentTrackId, setCurrentTrackId] = useState("");
   const [analysisStats, setAnalysisStats] = useState();
 
+
   function handleSearch(e) {
     e.preventDefault();
     fetch(`http://localhost:3000/spotify_api/search?track_name=${search}`)
@@ -17,8 +18,6 @@ function Search() {
 
   // SHOULD THIS BE 2 DIFFERENT USE EFFECTS?
   useEffect(() => {
-    // if (searchResults.length > 1)
-    // setCurrentTrackId(searchResults[0].id)
     searchResults.length > 1 ? setCurrentTrackId(searchResults[0].id) : setCurrentTrackId("")
 
     if (currentTrackId.length > 1)
@@ -44,17 +43,18 @@ function Search() {
                                                                                   // console.log(analysisStats)
                                                                                   // console.log(currentTrackId)
   return (
-    <div className=" bg-neutral-800 p-3 rounded-sm grid grid-rows-6">
-      <form id="searchTrack" onSubmit={handleSearch}>
+    <div className="bg-neutral-800 flex flex-row h-screen">
+    <div className=" bg-neutral-800 p-3 rounded-sm flex flex-col">
+      <form className="p-1" id="searchTrack" onSubmit={handleSearch}>
         <input
-          className="p-1 rounded-sm"
+          className="p-1 rounded-sm float-left"
           type="text"
           placeholder="Search Songs"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         ></input>
-        <button
-          className="     
+        {searchResults.length === 0 && <button
+          className=" 
       bg-neutral-600
       text-green-300 
       px-3
@@ -67,11 +67,12 @@ function Search() {
           type="submit"
         >
           Search
-        </button>
-      </form>
-      <div className="row-start-2 row-span-2">
+        </button>}
+      </form> 
+      <div className="my-2">
       {searchResults[0] && analysisStats && <Result searchResults={searchResults} setSearchResults={setSearchResults} analysisStats={analysisStats} handleRecommendation={handleRecommendation} clearTrackInfo={clearTrackInfo}/>}
       </div>
+    </div>
     </div>
   );
 }

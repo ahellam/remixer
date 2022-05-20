@@ -8,7 +8,7 @@ import Search from './Search';
 
 function App() {
   return (
-    <div className="p-3 text-center grid gap-1">
+    <div className="p-1 text-center grid gap-1">
       <Router>
         <Navigation />
         <Routes>
