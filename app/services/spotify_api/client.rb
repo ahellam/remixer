@@ -33,6 +33,10 @@ module SpotifyApi
                 get("audio-analysis/#{id}")
             end
 
+            def get_recommendations(id,tempo) 
+                get("recommendations?seed_tracks=#{id}&min_tempo=#{tempo.to_i - 3}&max_tempo#{tempo.to_i + 3}")
+            end
+
             # search by a track name 
             def search_track(track_name)
                 get("search?q=#{track_name}&type=track")

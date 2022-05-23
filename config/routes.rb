@@ -8,4 +8,6 @@ Rails.application.routes.draw do
 
   get "spotify_api/audio-analysis", to: "spotify_api#audio_analysis"
 
+  get "spotify_api/recommendations", to: "spotify_api#recommendations"
+
 end

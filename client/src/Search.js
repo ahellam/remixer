@@ -1,20 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Result from './Result';
 import Spinner from './Spinner';
 
 function Search() {
   const [search, setSearch] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-  const [currentTrackId, setCurrentTrackId] = useState("");
-  const [analysisStats, setAnalysisStats] = useState();
+  const [currentTrack, setCurrentTrack] = useState({});
+  const [recommendations, setRecommendations] = useState([]);
   const [isLoading, setIsLoading] = useState(false)
-
-  function getTrackAnalysis(trackId){
-    fetch(`http://localhost:3000/spotify_api/audio-analysis?id=${trackId}`)
-    .then(res => res.json())
-    .then(setAnalysisStats)
-    .then(setIsLoading(false))
-  }
 
   function handleSearch(e) {
     e.preventDefault();
@@ -22,28 +14,20 @@ function Search() {
     fetch(`http://localhost:3000/spotify_api/search?track_name=${search}`)
     .then(res => res.json())
     .then(json => {
-      setSearchResults(json.tracks.items)
-      setCurrentTrackId(json.tracks.items[0].id)
-      getTrackAnalysis(json.tracks.items[0].id)
+      setCurrentTrack(json)
+      setIsLoading(false)
+      setSearch("")
     })
-    
-    
-    .then(setSearch(""))
   }
-
-
-
-
   
   function handleRecommendation() {
-    console.log(`get recommendations from track id: ${currentTrackId}`)
-    
+    console.log(`get recommendations`) 
+    fetch(`http://localhost:3000/spotify_api/recommendations?id=${currentTrack.id}&tempo=${currentTrack.audio_analysis.tempo}`)
+    .then(res => res.json())
+    .then(setRecommendations)
   }
 
-  function clearTrackInfo() {
-    setSearchResults([])
-    setCurrentTrackId("")
-}
+  // console.log(currentTrack)
 
                                                                                   // console.log(analysisStats)
                                                                                   // console.log(currentTrackId)
@@ -76,10 +60,10 @@ function Search() {
         </button>
       </form> 
       <div className="my-2">
-      {(isLoading ? <Spinner /> : searchResults[0] && analysisStats &&  <Result searchResults={searchResults} setSearchResults={setSearchResults} analysisStats={analysisStats} handleRecommendation={handleRecommendation} clearTrackInfo={clearTrackInfo}/>)}
+      {(isLoading ? <Spinner /> : currentTrack.id && <Result currentTrack={currentTrack} handleRecommendation={handleRecommendation}/>)}
       </div>
     </div>
-    <Spinner />
+    {/* <Spinner /> */}
     </div>
   );
 }
