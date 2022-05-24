@@ -23,17 +23,18 @@ function Result({ currentTrack, handleRecommendation }) {
           <img
             className=" mr-3 h-[170px]"
             src={currentTrack.album.images[1].url}
+            alt="album cover"
           ></img>
           <p>
             <span className="text-green-400 font-semibold tracking-wide">
               TRACK NAME: &nbsp;
             </span>
             {currentTrack.name} <br></br>
-
+{/* 
             <span className="text-green-400 font-semibold tracking-wide">
               TRACK ID: &nbsp;
             </span>
-            {currentTrack.id} <br></br>
+            {currentTrack.id} <br></br> */}
 
             <span className="text-green-400 font-semibold tracking-wide">
               TRACK DURATION: &nbsp;
@@ -51,7 +52,7 @@ function Result({ currentTrack, handleRecommendation }) {
             <span className="text-green-400 font-semibold tracking-wide">
               ANALYSIS TEMPO: &nbsp;
             </span>
-            {currentTrack.audio_analysis.tempo} &nbsp;&nbsp;<span className="text-green-400 font-semibold tracking-wide">
+            {parseInt(currentTrack.audio_analysis.tempo)} &nbsp;&nbsp;<span className="text-green-400 font-semibold tracking-wide">
               TIME SIGNATURE:&nbsp;
             </span> {currentTrack.audio_analysis.time_signature}/4 <br></br>
             <span className="text-green-400 font-semibold tracking-wide">
@@ -60,7 +61,14 @@ function Result({ currentTrack, handleRecommendation }) {
             {keyToNotes(currentTrack.audio_analysis.key)} &nbsp;&nbsp;<span className="text-green-400 font-semibold tracking-wide">
               MODE:&nbsp;
             </span>
-            {modeToWord(currentTrack.audio_analysis.mode)}<br></br>
+            {modeToWord(currentTrack.audio_analysis.mode)} &nbsp;&nbsp; <br></br>
+            
+            <span className="text-green-400 font-semibold tracking-wide">
+              GENRES:&nbsp;
+            </span>{currentTrack.genres.map(g => `${g} / `)}
+
+
+            <br></br>
             <button
               onClick={handleRecommendation}
               className="     
@@ -79,6 +87,7 @@ function Result({ currentTrack, handleRecommendation }) {
             </button>
           </p>
         </div>
+        
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Result from './Result';
+import Recommendation from './Recommendation';
 import Spinner from './Spinner';
 
 function Search() {
@@ -21,8 +22,8 @@ function Search() {
   }
   
   function handleRecommendation() {
-    console.log(`get recommendations`) 
-    fetch(`http://localhost:3000/spotify_api/recommendations?id=${currentTrack.id}&tempo=${currentTrack.audio_analysis.tempo}`)
+    console.log(`currentTrack id: ${currentTrack.id}, tempo: ${parseInt(currentTrack.audio_analysis.tempo)}, key: ${currentTrack.audio_analysis.key}, mode: ${currentTrack.audio_analysis.mode}`) 
+    fetch(`http://localhost:3000/spotify_api/recommendations?id=${currentTrack.id}&tempo=${parseInt(currentTrack.audio_analysis.tempo)}&key=${currentTrack.audio_analysis.key}&mode=${currentTrack.audio_analysis.mode}`)
     .then(res => res.json())
     .then(setRecommendations)
   }
@@ -32,11 +33,12 @@ function Search() {
                                                                                   // console.log(analysisStats)
                                                                                   // console.log(currentTrackId)
   return (
-    <div className="bg-neutral-800 flex flex-row h-screen">
-    <div className=" bg-neutral-800 p-3 rounded-sm flex flex-col">
+    <div className="">
+    <div className="bg-neutral-800 h-screen">
+    <div className=" bg-neutral-800 p-3 rounded-sm flex flex-col items-start">
       <form className="p-1" id="searchTrack" onSubmit={handleSearch}>
         <input
-          className="p-1 rounded-sm float-left"
+          className="p-1 rounded-sm"
           type="text"
           placeholder="Search Songs"
           value={search}
@@ -44,7 +46,6 @@ function Search() {
         ></input>
         <button
           className=" 
-          float-left
       bg-neutral-600
       text-green-300 
       px-3
@@ -59,11 +60,22 @@ function Search() {
           Search
         </button>
       </form> 
+        {/* <Spinner /> */}
+
       <div className="my-2">
       {(isLoading ? <Spinner /> : currentTrack.id && <Result currentTrack={currentTrack} handleRecommendation={handleRecommendation}/>)}
       </div>
+
+      <div className="grid grid-cols-6">
+        {recommendations.map((rec, index) => (
+          <Recommendation key={index} rec={rec} index={index}/>
+        ))}
+      </div>
     </div>
-    {/* <Spinner /> */}
+
+
+
+    </div>
     </div>
   );
 }

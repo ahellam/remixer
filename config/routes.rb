@@ -10,4 +10,6 @@ Rails.application.routes.draw do
 
   get "spotify_api/recommendations", to: "spotify_api#recommendations"
 
+  get "spotify_api/audio-features", to: "spotify_api#audio_features"
+
 end
