@@ -66,7 +66,7 @@ function Search() {
       {(isLoading ? <Spinner /> : currentTrack.id && <Result currentTrack={currentTrack} handleRecommendation={handleRecommendation}/>)}
       </div>
 
-      <div className="grid grid-cols-6">
+      <div className="grid grid-cols-3">
         {recommendations.map((rec, index) => (
           <Recommendation key={index} rec={rec} index={index}/>
         ))}

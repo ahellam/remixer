@@ -36,16 +36,12 @@ class SpotifyApiController < ApplicationController
             end
         end
 
-        # results.each do |track, index|
+        # results.each do |track, index| (this assumes that the index positions are identical in both... not as safe as matching id's)
         #     track['audio_features'] = audio_features_for_results[index]
         # end
-
-        # results['audio_features'] = audio_features_for_results.dig('audio_features')
 
         render json: results, status: :ok
     end
 end
 
-# RECOMMENDATION OPTIONS......
-    #map the results to get id's for each recommendation 
-    #chain the get audio-features to the recommendations fetch to get tempo/key info 
+
