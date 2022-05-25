@@ -44,8 +44,9 @@ module SpotifyApi
             end
 
             # get recommendation based off tempo and key with a range of +/- 5   %2C is a comma for inbetween genres ie: &seed_genres=pop%2Ctechno%2Cr-n-b
+            # what happens if i take min and max tempo away and just use target_tempo? 
             def get_recommendations(id, tempo, key, mode) 
-                get("recommendations?seed_tracks=#{id}&seed_genres=pop%2Cdance%2Cr-n-b%2Calternative&target_tempo=#{tempo.to_i}&min_tempo=#{tempo.to_i - 5}&max_tempo=#{tempo.to_i + 5}&min_key=#{key}&max_key=#{key}&min_mode=#{mode}&max_mode=#{mode}")
+                get("recommendations?seed_tracks=#{id}&seed_genres=pop%2Cdance%2Cr-n-b%2Csoul&target_tempo=#{tempo.to_i}&min_tempo=#{tempo.to_i - 5}&max_tempo=#{tempo.to_i + 5}&min_key=#{key}&max_key=#{key}&min_mode=#{mode}&max_mode=#{mode}")
             end
 
             
