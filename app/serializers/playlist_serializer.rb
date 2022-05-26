@@ -1,5 +1,6 @@
 class PlaylistSerializer < ActiveModel::Serializer
   attributes :id, :name, :image, :description, :song_count, :tempo_avg
+  has_many :tracks
 
   def song_count
     object.tracks.count
