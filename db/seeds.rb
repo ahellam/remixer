@@ -5,6 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+puts '🌱 Seeding Starting....'
 
 p1 = Playlist.create!(
     name: 'Groovy Jams in F#', 
@@ -56,3 +57,5 @@ t3 =Track.create!(
     spotify_id: '1LeItUMezKA1HdCHxYICed',
     uri: 'spotify:track:1LeItUMezKA1HdCHxYICed'
 )
+
+puts 'seeding COMPLETE 🌱'

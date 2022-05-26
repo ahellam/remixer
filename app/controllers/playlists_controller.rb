@@ -21,6 +21,8 @@ class PlaylistsController < ApplicationController
         head :no_content
     end
 
+    
+
     private 
 
     def playlist_params

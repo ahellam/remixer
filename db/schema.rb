@@ -15,57 +15,12 @@ ActiveRecord::Schema.define(version: 2022_05_25_181550) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "appointments", force: :cascade do |t|
-    t.bigint "dog_id"
-    t.string "dog_name"
-    t.string "dog_breed"
-    t.string "dog_image"
-    t.string "user_name"
-    t.bigint "stylist_id"
-    t.string "stylist_name"
-    t.string "stylist_image"
-    t.string "stylist_intelligence"
-    t.boolean "is_dumber", default: false
-    t.bigint "service_id"
-    t.string "service_name"
-    t.string "service_price"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["dog_id"], name: "index_appointments_on_dog_id"
-    t.index ["service_id"], name: "index_appointments_on_service_id"
-    t.index ["stylist_id"], name: "index_appointments_on_stylist_id"
-  end
-
-  create_table "dogs", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "name"
-    t.string "breed"
-    t.string "image_url"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_dogs_on_user_id"
-  end
-
   create_table "playlists", force: :cascade do |t|
     t.string "name"
     t.string "image"
     t.string "description"
     t.integer "song_count"
     t.float "tempo_avg"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "services", force: :cascade do |t|
-    t.string "name"
-    t.float "price"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "stylists", force: :cascade do |t|
-    t.string "name"
-    t.string "image_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -87,17 +42,4 @@ ActiveRecord::Schema.define(version: 2022_05_25_181550) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "password_digest"
-    t.boolean "admin", default: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  add_foreign_key "appointments", "dogs"
-  add_foreign_key "appointments", "services"
-  add_foreign_key "appointments", "stylists"
-  add_foreign_key "dogs", "users"
 end
