@@ -52,7 +52,7 @@ function Result({ currentTrack, handleRecommendation }) {
             <span className="text-green-400 font-semibold tracking-wide">
               ANALYSIS TEMPO: &nbsp;
             </span>
-            {parseInt(currentTrack.audio_analysis.tempo)} &nbsp;&nbsp;<span className="text-green-400 font-semibold tracking-wide">
+            {Math.round(currentTrack.audio_analysis.tempo)} &nbsp;&nbsp;<span className="text-green-400 font-semibold tracking-wide">
               TIME SIGNATURE:&nbsp;
             </span> {currentTrack.audio_analysis.time_signature}/4 <br></br>
             <span className="text-green-400 font-semibold tracking-wide">

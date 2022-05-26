@@ -28,7 +28,7 @@ function Recommendation({rec}) {
         </span> {rec.artists[0].name}<br></br>
         <span className="text-green-400 font-semibold">
             TEMPO:&nbsp;
-        </span> {parseInt(rec.audio_features.tempo)}<br></br>
+        </span> {Math.round(rec.audio_features.tempo)}<br></br>
         <span className="text-green-400 font-semibold">
             KEY:&nbsp;
         </span> {keyToNotes(rec.audio_features.key)}&nbsp;{modeToWord(rec.audio_features.mode)} <br></br>

@@ -12,7 +12,7 @@ function PlaylistDetails({ playlist }) {
                 <div>
                 <h1 className="text-2xl font-semibold tracking-wide underline underline-offset-1">{playlist.name}</h1> 
                 <p className="text-s text-green-300">{playlist.description}</p>
-                <p className="font-semibold">Average Tempo of Tracks: <span className="text-green-300 font-normal">{parseInt(playlist.tempo_avg)} bpm</span></p>
+                <p className="font-semibold">Average Tempo of Tracks: <span className="text-green-300 font-normal">{Math.round(playlist.tempo_avg)} bpm</span></p>
                 <p className="font-semibold">Total Track Count: <span className="text-green-300 font-normal">{playlist.song_count}</span></p>
             <button
               onClick={() => console.log("View Details")}
