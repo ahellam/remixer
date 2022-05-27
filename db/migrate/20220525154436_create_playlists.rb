@@ -6,6 +6,7 @@ class CreatePlaylists < ActiveRecord::Migration[6.1]
       t.string :description
       t.integer :song_count
       t.float :tempo_avg
+      t.integer :user_id
       t.timestamps
     end
   end

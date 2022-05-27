@@ -7,7 +7,14 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 puts '🌱 Seeding Starting....'
 
+u1 = User.create!(
+    username: 'Aaron',
+    email: 'remixer@gmail.com',
+    password: 'password'
+)
+
 p1 = Playlist.create!(
+    user_id: u1.id,
     name: 'Groovy Jams in F#', 
     image: 'https://images.unsplash.com/photo-1605731414532-6b26976cc153?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070', 
     description: 'Various artists and tracks with a target tempo of 116, a tempo tolerance of +/- 5, and key of F#/Gb minor.'
@@ -60,6 +67,7 @@ t3 =Track.create!(
 
 
 p2 = Playlist.create!(
+    user_id: u1.id,
     name: 'Slow Sexy Hits in Cmin', 
     image: 'https://images.unsplash.com/photo-1468164016595-6108e4c60c8b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80', 
     description: 'Various artists and tracks with a target tempo of 94, a tempo tolerance of +/- 5, and key of C minor.'

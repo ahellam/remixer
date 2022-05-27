@@ -5,6 +5,7 @@ import Navigation from './Navigation';
 import Home from './Home';
 import Search from './Search';
 import Playlists from './Playlists';
+import Login from './Login';
 
 
 function App() {
@@ -12,17 +13,35 @@ function App() {
   const playlistsURL = "http://localhost:3000/playlists"
   const [playlists, setPlaylists] = useState([]);
 
+  const [isAuthenticated, setIsAuthenticated] = useState(false); 
+  const [user, setUser] = useState(null);
+
   useEffect(() => {
+    fetch(`http://localhost:3000/authorised_user`)
+    .then((res) => {
+      if (res.ok) {
+        res.json()
+        .then((user) => {
+          setIsAuthenticated(true);
+          setUser(user);
+        });
+      }
+    });
     fetch(playlistsURL)
     .then(res => res.json())
     .then(setPlaylists)
+
   },[])
+
+ // Reroute user to <Login /> Component if not authenticated
+ if (!isAuthenticated) return <Login error={'please login'} setIsAuthenticated={setIsAuthenticated} setUser={setUser} />;
 
   return (
     <div className="p-1 text-center grid gap-1">
       <Router>
         <Navigation />
         <Routes>
+          <Route path="/login" element={<Login setUser={setUser} setIsAuthenticated={setIsAuthenticated}/>}/>
           <Route path="/" element={<Home />}/>
           <Route path="/search" element={<Search />}/>
           <Route path="/playlists" element={<Playlists playlists={playlists}/>}/>

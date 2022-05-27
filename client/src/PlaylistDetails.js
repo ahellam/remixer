@@ -15,7 +15,7 @@ function PlaylistDetails({ playlist }) {
                 <p className="font-semibold">Average Tempo of Tracks: <span className="text-green-300 font-normal">{Math.round(playlist.tempo_avg)} bpm</span></p>
                 <p className="font-semibold">Total Track Count: <span className="text-green-300 font-normal">{playlist.song_count}</span></p>
             <button
-              onClick={() => console.log("View Details")}
+              onClick={() => console.log(playlist)}
               className="     
             bg-neutral-600
             text-green-300 
