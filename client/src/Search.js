@@ -1,13 +1,19 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import Result from './Result';
 import Recommendation from './Recommendation';
 import Spinner from './Spinner';
 
-function Search() {
+function Search({playlists, setPlaylists}) {
+
+  let navigate = useNavigate();
+
   const [search, setSearch] = useState("");
   const [currentTrack, setCurrentTrack] = useState({});
   const [recommendations, setRecommendations] = useState([]);
   const [isLoading, setIsLoading] = useState(false)
+  const [selectedPlaylist, setSelectedPlaylist] = useState("");
 
   function handleSearch(e) {
     e.preventDefault();
@@ -22,13 +28,60 @@ function Search() {
   }
   
   function handleRecommendation() {
-    console.log(`currentTrack id: ${currentTrack.id}, tempo: ${parseInt(currentTrack.audio_analysis.tempo)}, key: ${currentTrack.audio_analysis.key}, mode: ${currentTrack.audio_analysis.mode}`) 
+    // console.log(`currentTrack id: ${currentTrack.id}, tempo: ${parseInt(currentTrack.audio_analysis.tempo)}, key: ${currentTrack.audio_analysis.key}, mode: ${currentTrack.audio_analysis.mode}`) 
     fetch(`http://localhost:3000/spotify_api/recommendations?id=${currentTrack.id}&tempo=${parseInt(currentTrack.audio_analysis.tempo)}&key=${currentTrack.audio_analysis.key}&mode=${currentTrack.audio_analysis.mode}`)
     .then(res => res.json())
     .then(setRecommendations)
   }
 
-  // console.log(currentTrack)
+  function handleSaveTrack(e) {
+    e.preventDefault()
+    // console.log(currentTrack)
+    // console.log('selected playlist id: ', selectedPlaylist)
+
+    const songData = {
+      playlist_id: parseInt(selectedPlaylist),
+      name: currentTrack.name,
+      artist: currentTrack.artists[0].name,
+      album_name: currentTrack.album.name,
+      album_image: currentTrack.album.images[1].url,
+      tempo: currentTrack.audio_analysis.tempo,
+      time_signature: currentTrack.audio_analysis.time_signature,
+      key: currentTrack.audio_analysis.key,
+      mode: currentTrack.audio_analysis.mode,
+      duration_ms: currentTrack.duration_ms,
+      spotify_id: currentTrack.id,
+      uri: currentTrack.uri
+    }
+
+    // console.log(songData)
+    fetch('http://localhost:3000/tracks', {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(songData),
+    })
+    .then(res => res.json())
+    // *******THIS WOULDNT UPDATE THE SONG COUNT AND TEMPO AVG OF THE PLAYLIST (state/async)********
+    // .then((newTrack) => { 
+    //   const correctPlaylist = playlists.find((p) => p.id === parseInt(selectedPlaylist))
+    //   correctPlaylist.tracks.push(newTrack)
+    //   setPlaylists([...playlists.filter(p => p.id !== correctPlaylist.id), correctPlaylist]);
+    // })
+    .then(() => {
+      fetch('http://localhost:3000/playlists')
+      .then(res => res.json())
+      .then(setPlaylists)
+    })
+    .then(() => {
+      setCurrentTrack({});
+      setSelectedPlaylist("");
+      navigate('/playlists');
+    });
+   
+    
+
+  }
+  
 
                                                                                   // console.log(analysisStats)
                                                                                   // console.log(currentTrackId)
@@ -63,7 +116,7 @@ function Search() {
         {/* <Spinner /> */}
 
       <div className="my-2">
-      {(isLoading ? <Spinner /> : currentTrack.id && <Result currentTrack={currentTrack} handleRecommendation={handleRecommendation}/>)}
+      {(isLoading ? <Spinner /> : currentTrack.id && <Result playlists={playlists} currentTrack={currentTrack} handleRecommendation={handleRecommendation} selectedPlaylist={selectedPlaylist} setSelectedPlaylist={setSelectedPlaylist} handleSaveTrack={handleSaveTrack}/>)}
       </div>
 
       <div className="grid grid-cols-3">

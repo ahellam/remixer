@@ -5,6 +5,12 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+puts 'Deleting REMIXER DATA....'
+
+User.destroy_all
+Playlist.destroy_all
+Track.destroy_all
+
 puts '🌱 Seeding Starting....'
 
 u1 = User.create!(

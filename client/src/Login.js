@@ -35,12 +35,17 @@ function Login({setUser, setIsAuthenticated}) {
   }
 
   return (
-
-    <div className="h-screen bg-neutral-800 text-green-300">
+    <div>
+    <div className=" bg-neutral-800 p-2 rounded-sm grid grid-cols-12 m-1">
+      <h1 className=" tracking-wide text-green-300 text-4xl p-1 col-span-2 text-center font-medium">R <span className="font-semibold text-green-400">E </span>
+        <span className="font-semibold text-green-500">M <span className="font-semibold text-green-600">I </span> X </span>
+        <span className="font-semibold text-green-400">E </span>R 
+      </h1>
+    <div className="bg-neutral-800 text-green-300 col-span-6 col-start-7 text-right p-2 tracking-wide">
         <form onSubmit={handleSubmit}>
         <label className="font-bold px-1">Username:&nbsp;
         <input
-          className="border-2 rounded-md"
+          className="border-2 border-green-500 rounded-sm bg-neutral-800"
           name="user[email]"
           type="text"
           placeholder="Enter Name"
@@ -52,7 +57,7 @@ function Login({setUser, setIsAuthenticated}) {
 
         <label className="font-bold px-1">Password:&nbsp;
         <input
-          className="border-2 rounded-md"
+          className="border-2 border-green-500 rounded-sm bg-neutral-800"
           name="user[password]"
           type="text"
           placeholder="Enter Password"
@@ -79,6 +84,11 @@ function Login({setUser, setIsAuthenticated}) {
         </button>
         </form>
     </div>
+    </div>
+      <div className="bg-neutral-800 h-screen m-1">
+
+      </div>
+      </div>
   )
 }
 

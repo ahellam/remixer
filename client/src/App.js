@@ -43,7 +43,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login setUser={setUser} setIsAuthenticated={setIsAuthenticated}/>}/>
           <Route path="/" element={<Home />}/>
-          <Route path="/search" element={<Search />}/>
+          <Route path="/search" element={<Search playlists={playlists} setPlaylists={setPlaylists}/>}/>
           <Route path="/playlists" element={<Playlists playlists={playlists}/>}/>
         </Routes>
       </Router>

@@ -1,6 +1,6 @@
-import React from "react";
+// import {useState} from "react";
 
-function Result({ currentTrack, handleRecommendation }) {
+function Result({ currentTrack, handleRecommendation, playlists, selectedPlaylist, setSelectedPlaylist, handleSaveTrack }) {
 
   const millisToMinutesAndSeconds = (millis) => {
     const minutes = Math.floor(millis / 60000);
@@ -25,16 +25,11 @@ function Result({ currentTrack, handleRecommendation }) {
             src={currentTrack.album.images[1].url}
             alt="album cover"
           ></img>
-          <p>
+          <div>
             <span className="text-green-400 font-semibold tracking-wide">
               TRACK NAME: &nbsp;
             </span>
             {currentTrack.name} <br></br>
-{/* 
-            <span className="text-green-400 font-semibold tracking-wide">
-              TRACK ID: &nbsp;
-            </span>
-            {currentTrack.id} <br></br> */}
 
             <span className="text-green-400 font-semibold tracking-wide">
               TRACK DURATION: &nbsp;
@@ -69,6 +64,7 @@ function Result({ currentTrack, handleRecommendation }) {
 
 
             <br></br>
+            <div className="flex">
             <button
               onClick={handleRecommendation}
               className="     
@@ -85,7 +81,48 @@ function Result({ currentTrack, handleRecommendation }) {
             >
               Get Recommendations
             </button>
-          </p>
+
+            <form>
+            <select className="
+              text-center
+            bg-neutral-600
+            text-green-300 
+              text-base
+              px-1
+              py-[3.3px]
+              rounded-sm
+              my-1
+              ml-2"
+              value={selectedPlaylist}
+              onChange={(e) => setSelectedPlaylist(e.target.value)}
+              >
+                <option value="">Select Playlist</option>
+                {playlists.map((playlist) => (
+                  <option key={playlist.id} value={playlist.id}>
+                    {playlist.name}
+                  </option>
+                ))}
+            </select>
+            {selectedPlaylist && <button
+              onClick={handleSaveTrack}
+              className="     
+            bg-neutral-600
+            text-green-300 
+              text-base
+              px-4
+              py-0.5
+              rounded-sm
+              my-1
+              ml-2
+            hover:bg-green-700
+            active:bg-green-900
+            "
+            >
+              Save To Playlist
+            </button>}
+            </form>
+            </div>
+          </div>
         </div>
         
     </div>
