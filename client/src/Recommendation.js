@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Recommendation({rec, handleSaveRec, selectedPlaylist}) {
+function Recommendation({rec, handleSaveRec, selectedPlaylist, handleRecSearch}) {
 
     const keyToNotes = (key) => {
         const notes = ["C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B"]
@@ -45,7 +45,7 @@ function Recommendation({rec, handleSaveRec, selectedPlaylist}) {
             hover:bg-green-700
             active:bg-green-900
             "
-            onClick={() => console.log(rec.id)}>Search</button>
+            onClick={() => handleRecSearch(rec)}>Search</button>
 
             {selectedPlaylist && <button className="  
             my-1 

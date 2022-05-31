@@ -26,6 +26,20 @@ function Search({playlists, setPlaylists, tracks, setTracks}) {
       setSearch("")
     })
   }
+
+  function handleRecSearch(rec) {
+    const songAndArtistName = `${rec.name} ${rec.artists[0].name}`
+    // console.log(songAndArtistName)
+    setIsLoading(true)
+    fetch(`http://localhost:3000/spotify_api/search?track_name=${songAndArtistName}`)
+    .then(res => res.json())
+    .then(json => {
+      setCurrentTrack(json)
+      setIsLoading(false)
+      setSearch("")
+    })
+
+  }
   
   function handleRecommendation() {
     // console.log(`currentTrack id: ${currentTrack.id}, tempo: ${parseInt(currentTrack.audio_analysis.tempo)}, key: ${currentTrack.audio_analysis.key}, mode: ${currentTrack.audio_analysis.mode}`) 
@@ -131,7 +145,7 @@ function Search({playlists, setPlaylists, tracks, setTracks}) {
       
       <div className="grid grid-cols-3">
         {recommendations.map((rec, index) => (
-          <Recommendation key={index} rec={rec} index={index} handleSaveRec={handleSaveRec} selectedPlaylist={selectedPlaylist}/>
+          <Recommendation key={index} rec={rec} index={index} handleSaveRec={handleSaveRec} selectedPlaylist={selectedPlaylist} handleRecSearch={handleRecSearch}/>
         ))}
       </div>
     </div>
