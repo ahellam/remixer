@@ -34,6 +34,40 @@ function Search({playlists, setPlaylists}) {
     .then(setRecommendations)
   }
 
+  function handleSaveRec(rec) {
+
+    const recData = {
+      playlist_id: parseInt(selectedPlaylist),
+      name: rec.name, 
+      artist: rec.artists[0].name,
+      album_name: rec.album.name,
+      album_image: rec.album.images[1].url,
+      tempo: rec.audio_features.tempo,
+      time_signature: rec.audio_features.time_signature,
+      key: rec.audio_features.key,
+      mode: rec.audio_features.mode,
+      duration_ms: rec.audio_features.duration_ms,
+      spotify_id: rec.id,
+      uri: rec.uri
+    }
+    // console.log(recData)
+    fetch('http://localhost:3000/tracks', {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(recData),
+    })
+    .then(() => {
+      fetch('http://localhost:3000/playlists')
+      .then(res => res.json())
+      .then(setPlaylists)
+    })
+    .then(() => {
+      // setCurrentTrack({});
+      // setSelectedPlaylist("");
+      navigate('/playlists');
+    });
+  }
+
   function handleSaveTrack(e) {
     e.preventDefault()
     // console.log(currentTrack)
@@ -73,13 +107,11 @@ function Search({playlists, setPlaylists}) {
       .then(setPlaylists)
     })
     .then(() => {
-      setCurrentTrack({});
-      setSelectedPlaylist("");
+      // setCurrentTrack({});
+      // setSelectedPlaylist("");
       navigate('/playlists');
     });
    
-    
-
   }
   
 
@@ -118,10 +150,10 @@ function Search({playlists, setPlaylists}) {
       <div className="my-2">
       {(isLoading ? <Spinner /> : currentTrack.id && <Result playlists={playlists} currentTrack={currentTrack} handleRecommendation={handleRecommendation} selectedPlaylist={selectedPlaylist} setSelectedPlaylist={setSelectedPlaylist} handleSaveTrack={handleSaveTrack}/>)}
       </div>
-
+      
       <div className="grid grid-cols-3">
         {recommendations.map((rec, index) => (
-          <Recommendation key={index} rec={rec} index={index}/>
+          <Recommendation key={index} rec={rec} index={index} handleSaveRec={handleSaveRec} selectedPlaylist={selectedPlaylist}/>
         ))}
       </div>
     </div>

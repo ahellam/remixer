@@ -1,11 +1,14 @@
-import React from 'react'
+import {useState} from 'react'
 import PlaylistDetails from './PlaylistDetails'
 
 function Playlists({playlists}) {
+
+  const [selectedPlaylist, setSelectedPlaylist] = useState("")
+  // console.log(playlists.find(p => p.id === parseInt(selectedPlaylist)))
   return (
     <div className="bg-neutral-800 h-screen">
         <div>
-        <h1 
+        {/* <h1 
             className=" tracking-wide text-3xl p-1 text-center font-medium">
             <span className="text-green-300"> P</span>
             <span className="text-green-400"> L</span>
@@ -17,11 +20,31 @@ function Playlists({playlists}) {
             <span className="text-green-400"> T</span>
             <span className="text-green-300"> S</span>
         
-        </h1>
+        </h1> */}
         </div>
-      {playlists.map((playlist) => (
-          <PlaylistDetails key={playlist.id} playlist={playlist}/>
-      ))}
+      <select className="
+              text-center
+              bg-neutral-600
+              text-green-300 
+              text-base
+              px-1
+              py-[3.3px]
+              rounded-sm
+              my-2
+              mr-2
+              "
+              value={selectedPlaylist}
+              onChange={(e) => setSelectedPlaylist(e.target.value)}
+              >
+        <option value="">Select Playlist</option>
+        {playlists.map((playlist) => (
+          <option key={playlist.id} value={playlist.id}>
+            {playlist.name}
+          </option>
+        ))}
+      </select>
+      {selectedPlaylist && <PlaylistDetails playlist={playlists.find(p => p.id === parseInt(selectedPlaylist))} />}
+       
     </div>
   )
 }

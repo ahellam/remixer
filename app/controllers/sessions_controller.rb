@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
             session[:current_user] = user.id
 
             # - Set Session's 'login_attempts' to 0
-            session[:login_attempts] = 0
+            # session[:login_attempts] = 0
             
             render json: user, status: :ok
 

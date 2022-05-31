@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Recommendation({rec}) {
+function Recommendation({rec, handleSaveRec, selectedPlaylist}) {
 
     const keyToNotes = (key) => {
         const notes = ["C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B"]
@@ -33,18 +33,32 @@ function Recommendation({rec}) {
             KEY:&nbsp;
         </span> {keyToNotes(rec.audio_features.key)}&nbsp;{modeToWord(rec.audio_features.mode)} <br></br>
 
-            <button className="  
+             <button className="  
+            my-1 
+            bg-neutral-600
+            text-green-300 
+            text-base
+            px-3
+            py-0.5
+            rounded-sm
+            mr-1
+            hover:bg-green-700
+            active:bg-green-900
+            "
+            onClick={() => console.log(rec.id)}>Search</button>
+
+            {selectedPlaylist && <button className="  
             my-1 
             bg-neutral-600
             text-green-300 
               text-base
-              px-4
+              px-3
               py-0.5
               rounded-sm
             hover:bg-green-700
             active:bg-green-900
             "
-             onClick={() => console.log(rec.id)}>Add</button>
+             onClick={() => handleSaveRec(rec)}>Save</button>}
     </div>
   )
 }
