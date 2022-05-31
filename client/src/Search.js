@@ -5,7 +5,7 @@ import Result from './Result';
 import Recommendation from './Recommendation';
 import Spinner from './Spinner';
 
-function Search({playlists, setPlaylists}) {
+function Search({playlists, setPlaylists, tracks, setTracks}) {
 
   let navigate = useNavigate();
 
@@ -56,16 +56,9 @@ function Search({playlists, setPlaylists}) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(recData),
     })
-    .then(() => {
-      fetch('http://localhost:3000/playlists')
-      .then(res => res.json())
-      .then(setPlaylists)
-    })
-    .then(() => {
-      // setCurrentTrack({});
-      // setSelectedPlaylist("");
-      navigate('/playlists');
-    });
+    .then(res => res.json())
+    .then((newTrack) => {setTracks([...tracks, newTrack])})
+    .then(() => {navigate('/playlists');});
   }
 
   function handleSaveTrack(e) {
@@ -95,23 +88,8 @@ function Search({playlists, setPlaylists}) {
       body: JSON.stringify(songData),
     })
     .then(res => res.json())
-    // *******THIS WOULDNT UPDATE THE SONG COUNT AND TEMPO AVG OF THE PLAYLIST (state/async)********
-    // .then((newTrack) => { 
-    //   const correctPlaylist = playlists.find((p) => p.id === parseInt(selectedPlaylist))
-    //   correctPlaylist.tracks.push(newTrack)
-    //   setPlaylists([...playlists.filter(p => p.id !== correctPlaylist.id), correctPlaylist]);
-    // })
-    .then(() => {
-      fetch('http://localhost:3000/playlists')
-      .then(res => res.json())
-      .then(setPlaylists)
-    })
-    .then(() => {
-      // setCurrentTrack({});
-      // setSelectedPlaylist("");
-      navigate('/playlists');
-    });
-   
+    .then((newTrack) => {setTracks([...tracks, newTrack])})
+    .then(() => {navigate('/playlists');})
   }
   
 

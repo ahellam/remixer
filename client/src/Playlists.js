@@ -1,10 +1,10 @@
 import {useState} from 'react'
 import PlaylistDetails from './PlaylistDetails'
 
-function Playlists({playlists}) {
+function Playlists({playlists, handleDeleteTrack, tracks}) {
 
-  const [selectedPlaylist, setSelectedPlaylist] = useState("")
-  // console.log(playlists.find(p => p.id === parseInt(selectedPlaylist)))
+  const [shownPlaylist, setShownPlaylist] = useState("")
+  // console.log(playlists.find(p => p.id === parseInt(shownPlaylist)))
   return (
     <div className="bg-neutral-800 h-screen">
         <div>
@@ -33,8 +33,8 @@ function Playlists({playlists}) {
               my-2
               mr-2
               "
-              value={selectedPlaylist}
-              onChange={(e) => setSelectedPlaylist(e.target.value)}
+              value={shownPlaylist}
+              onChange={(e) => setShownPlaylist(e.target.value)}
               >
         <option value="">Select Playlist</option>
         {playlists.map((playlist) => (
@@ -43,7 +43,7 @@ function Playlists({playlists}) {
           </option>
         ))}
       </select>
-      {selectedPlaylist && <PlaylistDetails playlist={playlists.find(p => p.id === parseInt(selectedPlaylist))} />}
+      {shownPlaylist && <PlaylistDetails playlist={playlists.find(p => p.id === parseInt(shownPlaylist))} handleDeleteTrack={handleDeleteTrack} shownPlaylist={shownPlaylist} tracks={tracks}/>}
        
     </div>
   )

@@ -15,7 +15,7 @@ class TracksController < ApplicationController
     end
 
     def destroy 
-        track = track.find(params[:id])
+        track = Track.find(params[:id])
         track.destroy
         head :no_content
     end

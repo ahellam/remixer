@@ -12,7 +12,10 @@ import Login from './Login';
 function App() {
 
   const playlistsURL = "http://localhost:3000/playlists"
+  const tracksURL = "http://localhost:3000/tracks"
+
   const [playlists, setPlaylists] = useState([]);
+  const [tracks, setTracks] = useState([]);
 
   const [isAuthenticated, setIsAuthenticated] = useState(false); 
   const [user, setUser] = useState(null);
@@ -32,7 +35,19 @@ function App() {
     .then(res => res.json())
     .then(setPlaylists)
 
+    fetch(tracksURL)
+    .then(res => res.json())
+    .then(setTracks)
+
   },[])
+                                                  // console.log(tracks)
+  function handleDeleteTrack(track) { 
+    // console.log(track.id)
+    fetch(`${tracksURL}/${track.id}`, {
+        method: "DELETE"
+    })
+    .then(setTracks(tracks.filter((t) => t.id !== track.id)))
+  }
 
  // Reroute user to <Login /> Component if not authenticated
  if (!isAuthenticated) return <Login error={'please login'} setIsAuthenticated={setIsAuthenticated} setUser={setUser} />;
@@ -45,8 +60,8 @@ function App() {
           <Route path="/login" element={<Login setUser={setUser} setIsAuthenticated={setIsAuthenticated}/>}/>
           <Route path="/" element={<Home />}/>
           <Route path="/success" element={<Success />}/>
-          <Route path="/search" element={<Search playlists={playlists} setPlaylists={setPlaylists}/>}/>
-          <Route path="/playlists" element={<Playlists playlists={playlists}/>}/>
+          <Route path="/search" element={<Search playlists={playlists} setPlaylists={setPlaylists} tracks={tracks} setTracks={setTracks}/>}/>
+          <Route path="/playlists" element={<Playlists playlists={playlists} handleDeleteTrack={handleDeleteTrack} tracks={tracks}/>}/>
         </Routes>
       </Router>
     </div>
