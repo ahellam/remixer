@@ -32,6 +32,11 @@ function Navigation({ setIsAuthenticated, setUser, user}) {
                 ? "self-center text-green-400 animate-pulse font-bold hover:text-blue-600"
                 : "self-center text-green-300 font-semibold hover:text-blue-600 active:font-bold",
             ]}>Playlists&nbsp;</NavLink>
+        <NavLink to="/create" className={({ isActive }) => [
+              isActive
+                ? "self-center text-green-400 animate-pulse font-bold hover:text-blue-600"
+                : "self-center text-green-300 font-semibold hover:text-blue-600 active:font-bold",
+            ]}>Create&nbsp;</NavLink>
         <button 
         onClick={logout}
         className="

@@ -96,7 +96,7 @@ function Result({ currentTrack, handleRecommendation, playlists, selectedPlaylis
             <div className="flex">
             <button
               onClick={handleRecommendation}
-              className="     
+              className="    
             bg-neutral-600
             text-green-300 
               text-base
@@ -132,11 +132,29 @@ function Result({ currentTrack, handleRecommendation, playlists, selectedPlaylis
                   </option>
                 ))}
             </select>
-            {selectedPlaylist && <button
+            {selectedPlaylist ? <button
               onClick={handleSaveTrack}
               className="     
+              
             bg-neutral-600
             text-green-300 
+              text-base
+              px-4
+              py-0.5
+              rounded-sm
+              my-1
+              ml-2
+            hover:bg-green-700
+            active:bg-green-900
+            "
+            >
+              Save To Playlist
+            </button> : <button
+              onClick={handleSaveTrack}
+              className="     
+              pointer-events-none 
+            bg-neutral-600
+              text-neutral-400
               text-base
               px-4
               py-0.5

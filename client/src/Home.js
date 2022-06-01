@@ -12,12 +12,13 @@ function Home() {
     <div>
     <div className=" bg-neutral-800 p-2 rounded-sm h-screen ">
         <h1 className="text-green-400 text-left font-semibold text-2xl leading-10">
-          <span className="text-3xl font-bold tracking-wider">Welcome to Remixer.</span> <br></br> 
-          &nbsp;&bull; Search for a song to get started. <br></br> 
+          <span className="text-3xl font-bold tracking-wider">Please connect your spotify account.</span> <br></br> 
+          {/* &nbsp;&bull; Search for a song to get started. <br></br> 
           &nbsp;&bull; Get additional information about the song such as tempo and key. <br></br> 
           &nbsp;&bull; Get recommendations for songs that share those similar parameters.<br></br> 
           &nbsp;&bull; Save songs into playlists ie: 116bpm F#minor.<br></br> 
-          &nbsp;&bull; Create new playlists and update/delete existing playlists.</h1>
+          &nbsp;&bull; Create new playlists and update/delete existing playlists. */}
+          </h1>
 
           <button
                     onClick={handleConnect}

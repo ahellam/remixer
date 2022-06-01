@@ -6,6 +6,7 @@ import Home from './Home';
 import Search from './Search';
 import Success from './Success'
 import Playlists from './Playlists';
+import Create from './Create'
 import Login from './Login';
 
 
@@ -49,6 +50,7 @@ function App() {
     .then(setTracks(tracks.filter((t) => t.id !== track.id)))
   }
 
+
  // Reroute user to <Login /> Component if not authenticated
  if (!isAuthenticated) return <Login error={'please login'} setIsAuthenticated={setIsAuthenticated} setUser={setUser} />;
 
@@ -62,6 +64,7 @@ function App() {
           <Route path="/success" element={<Success />}/>
           <Route path="/search" element={<Search playlists={playlists} setPlaylists={setPlaylists} tracks={tracks} setTracks={setTracks}/>}/>
           <Route path="/playlists" element={<Playlists playlists={playlists} handleDeleteTrack={handleDeleteTrack} tracks={tracks}/>}/>
+          <Route path="/create" element={<Create playlists={playlists} setPlaylists={setPlaylists}/>}/>
         </Routes>
       </Router>
     </div>
