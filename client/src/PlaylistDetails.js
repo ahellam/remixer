@@ -1,6 +1,6 @@
 import React from "react";
 
-function PlaylistDetails({ playlist, handleDeleteTrack, tracks, shownPlaylist}) {
+function PlaylistDetails({ playlist, handleDeleteTrack, tracks, shownPlaylist, handleDeletePlaylist}) {
 
   const millisToMinutesAndSeconds = (millis) => {
     const minutes = Math.floor(millis / 60000);
@@ -27,16 +27,16 @@ function PlaylistDetails({ playlist, handleDeleteTrack, tracks, shownPlaylist}) 
   return (
     <div className="bg-neutral-800 p-3 text-green-400">
       <div className="flex">
-        <img src={playlist.image} alt="playlist img" className="h-[140px] mr-3 rounded-sm"></img>
+        <img src={playlist.image} alt="playlist img" className="h-[140px] w-[200px] object-cover mr-3 rounded-sm"></img>
             <div className="flex flex-col text-left">
                 <div>
                 <h1 className="text-2xl font-semibold tracking-wide underline underline-offset-1">{playlist.name}</h1> 
                 <p className="text-s text-green-300">{playlist.description}</p>
-                <p className="font-semibold">Average Tempo of Tracks: <span className="text-green-300 font-normal">{Math.round(avgTempo)} bpm</span></p>
+                <p className="font-semibold">Average Tempo of Tracks: <span className="text-green-300 font-normal">{avgTempo ? `${Math.round(avgTempo)} bpm` : "Empty Playlist"}</span></p>
                 <p className="font-semibold">Total Track Count: <span className="text-green-300 font-normal">{songsCount}</span></p>
 
             <button
-              onClick={() => console.log("Delete Playlist")}
+              onClick={() => handleDeletePlaylist(playlist)}
               className="     
             bg-neutral-600
             text-green-300 

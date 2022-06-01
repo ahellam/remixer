@@ -11,7 +11,7 @@ class PlaylistsController < ApplicationController
     end
 
     def create 
-        playlist = Plalist.create!(playlist_params)
+        playlist = Playlist.create!(playlist_params)
         render json: playlist, status: :created
     end
 
@@ -26,6 +26,6 @@ class PlaylistsController < ApplicationController
     private 
 
     def playlist_params
-        params.permit(:name, :image, :description)
+        params.permit(:name, :image, :description, :user_id)
     end
 end

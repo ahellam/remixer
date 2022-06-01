@@ -1,10 +1,20 @@
 import {useState} from 'react'
 import PlaylistDetails from './PlaylistDetails'
 
-function Playlists({playlists, handleDeleteTrack, tracks}) {
+function Playlists({playlists, setPlaylists, handleDeleteTrack, tracks, handleDeletePlaylist}) {
 
   const [shownPlaylist, setShownPlaylist] = useState("")
   // console.log(playlists.find(p => p.id === parseInt(shownPlaylist)))
+
+  function handleDeletePlaylist(playlist) {
+    // console.log(playlist)
+    fetch(`http://localhost:3000/playlists/${playlist.id}`, {
+      method: "DELETE"
+    })
+    .then(setShownPlaylist(""))
+    .then(setPlaylists(playlists.filter((p) => p.id !== playlist.id)))
+  }
+
   return (
     <div className="bg-neutral-800 h-screen">
         <div>
@@ -43,7 +53,7 @@ function Playlists({playlists, handleDeleteTrack, tracks}) {
           </option>
         ))}
       </select>
-      {shownPlaylist && <PlaylistDetails playlist={playlists.find(p => p.id === parseInt(shownPlaylist))} handleDeleteTrack={handleDeleteTrack} shownPlaylist={shownPlaylist} tracks={tracks}/>}
+      {shownPlaylist && <PlaylistDetails playlist={playlists.find(p => p.id === parseInt(shownPlaylist))} handleDeleteTrack={handleDeleteTrack} shownPlaylist={shownPlaylist} tracks={tracks} handleDeletePlaylist={handleDeletePlaylist}/>}
        
     </div>
   )

@@ -63,7 +63,7 @@ function App() {
           <Route path="/" element={<Home />}/>
           <Route path="/success" element={<Success />}/>
           <Route path="/search" element={<Search playlists={playlists} setPlaylists={setPlaylists} tracks={tracks} setTracks={setTracks}/>}/>
-          <Route path="/playlists" element={<Playlists playlists={playlists} handleDeleteTrack={handleDeleteTrack} tracks={tracks}/>}/>
+          <Route path="/playlists" element={<Playlists playlists={playlists} setPlaylists={setPlaylists} handleDeleteTrack={handleDeleteTrack} tracks={tracks} />}/>
           <Route path="/create" element={<Create playlists={playlists} setPlaylists={setPlaylists}/>}/>
         </Routes>
       </Router>

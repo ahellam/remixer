@@ -12,7 +12,7 @@ class PlaylistSerializer < ActiveModel::Serializer
     tempos = tracks.each do |track|
       array << track[:tempo]
     end
-    avg = array.sum / tracks.count
-    return avg
+    array.empty? ? 0 : avg = array.sum / tracks.count
+    avg.nil? ? avg : 0
   end
 end
