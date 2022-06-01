@@ -1,6 +1,6 @@
 import React from "react";
 
-function Spinner() {
+function Spinner2() {
   return (
       <div className="border-4 border-white border-double h-44 grid grid-cols-3">
     <div className="flex justify-center items-center">
@@ -11,7 +11,7 @@ function Spinner() {
         className="inline-block w-16 h-16 border-4 border-neutral-800/0 rounded-full"
         role="status" >
       </div>
-        <span className="text-green-300 font-extrabold text-xl tracking-widest animate-pulse">LOADING</span>
+        <span className="text-green-300 font-extrabold text-xl tracking-widest animate-pulse">WELCOME</span>
         
       </div>
     </div>
@@ -36,13 +36,13 @@ function Spinner() {
         className="inline-block w-16 h-16 border-4 border-neutral-800/0 rounded-full"
         role="status" >
       </div>
-        <span className="text-green-300 font-extrabold text-xl tracking-widest animate-pulse">LOADING</span>
+        <span className="text-green-300 font-extrabold text-xl tracking-widest animate-pulse">REMIXER</span>
       </div>
 
     </div>
   );
 }
 
-export default Spinner;
+export default Spinner2;
 
 

@@ -1,4 +1,6 @@
 import {useState} from 'react'
+import Spinner2 from './Spinner2';
+
 
 function Login({setUser, setIsAuthenticated}) {
 
@@ -85,8 +87,10 @@ function Login({setUser, setIsAuthenticated}) {
         </form>
     </div>
     </div>
-      <div className="bg-neutral-800 h-screen m-1">
-
+      <div className="bg-neutral-800 h-screen m-1 grid grid-cols-6 grid-rows-2">
+        <div className="col-start-3 col-span-2 mt-5">
+          <Spinner2/>
+        </div>
       </div>
       </div>
   )
