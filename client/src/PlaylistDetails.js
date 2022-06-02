@@ -1,6 +1,22 @@
-import React from "react";
+import { useState, useEffect } from "react";
+import SpotifyPlayer from 'react-spotify-web-playback';
 
 function PlaylistDetails({ playlist, handleDeleteTrack, tracks, shownPlaylist, handleDeletePlaylist}) {
+
+  const [selectedPlaylistTrack, setSelectedPlaylistTrack] = useState()
+  const [userToken, setUserToken] = useState()
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/spotify_api/get_user_token`)
+        .then((res) => {
+          if (res.ok) {
+            res.json()
+                .then((res) => {
+                  setUserToken(res.token);
+                });
+          }
+        });
+  },[])
 
   const millisToMinutesAndSeconds = (millis) => {
     const minutes = Math.floor(millis / 60000);
@@ -56,6 +72,38 @@ function PlaylistDetails({ playlist, handleDeleteTrack, tracks, shownPlaylist, h
             </div>
       </div>
 
+      <div className="ml-1 w-1/2">
+      {userToken && selectedPlaylistTrack && <SpotifyPlayer
+          token={userToken}
+          uris={[selectedPlaylistTrack.uri]}
+          styles={{
+            bgColor: "neutral",
+            trackNameColor: "rgb(74 222 128 / 50)",
+            trackArtistColor: "#3b8f63",
+            color: "rgb(74 222 128 / 50)",
+            sliderHandleColor: "#3b8f63",
+          }}
+      />}
+      {selectedPlaylistTrack && <button
+       onClick={() => setSelectedPlaylistTrack()}
+       className="
+       float-right
+       bg-neutral-600
+       text-green-300 
+         text-base
+         px-4
+         py-0.5
+         rounded-sm
+         my-1
+       hover:bg-red-700
+       active:bg-red-900
+       mr-2
+       "
+       >
+         Clear 
+        </button>}
+      </div>
+
       <div className="bg-neutral-800 flex flex-col mt-2">
         {tracks.filter(track => track.playlist_id === parseInt(shownPlaylist)).map((t) => (
           <div key={t.id} className=" text-green-200 my-1 text-sm leading-[18px]">
@@ -97,6 +145,20 @@ function PlaylistDetails({ playlist, handleDeleteTrack, tracks, shownPlaylist, h
             active:bg-red-900
             "
             onClick={() => handleDeleteTrack(t)}>Delete</button>
+
+<button className="  
+            my-1 
+            bg-neutral-600
+            text-green-300 
+            text-base
+            px-5
+            py-0.5
+            rounded-sm
+            mr-1
+            hover:bg-red-700
+            active:bg-red-900
+            "
+            onClick={() => setSelectedPlaylistTrack(t)}>Play</button>
             </div>
           </div>
         ))}

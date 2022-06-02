@@ -64,10 +64,6 @@ class SpotifyApiController < ApplicationController
             end
         end
 
-        # results.each do |track, index| (this assumes that the index positions are identical in both... not as safe as matching id's)
-        #     track['audio_features'] = audio_features_for_results[index]
-        # end
-
         render json: results, status: :ok
     end
 end
